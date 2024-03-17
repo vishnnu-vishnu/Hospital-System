@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="col-md-6" style="margin-left:300px;">
+          <div class="tile">
+            <h3 class="tile-title">EDIT DEPARTMENT DELAILS</h3>
+            <div class="tile-body">
+              <form method="post" action="{% url 'updatedepartment' dataid=data.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                  <label class="control-label">Department Name</label>
+                  <input class="form-control" type="text" placeholder="Enter Department Name" name="dname" value="{{data.depname}}">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Category Name</label><br>
+                  <select class="form-control" name="dcat">
+                    <option>{{data.depcat}}</option>
+                  {% for i in cat %}
+                    <option>{{i.catname}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Department Description</label>
+                  <textarea class="form-control" rows="10" placeholder="" name="ddes">{{data.depdes}}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Department Image</label>
+                  <img src="{{data.depimg.url}}" style="width:100x; height:100px;">
+                  <input class="form-control" type="file" name="dimg" value=>
+                </div>
+                 <div class="tile-footer">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Submit</button>
+            </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error')
+            </script>
+        {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success')
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .bookmarkBtn {
+      width: 100px;
+      height: 40px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.349);
+      background-color: #6c757d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition-duration: .3s;
+      overflow: hidden;
+    }
+
+    .IconContainer {
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 2;
+      transition-duration: .4s;
+    }
+
+    .icon {
+      border-radius: 1px;
+    }
+
+    .text {
+      height: 100%;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 1;
+      transition-duration: .3s;
+      font-size: 1.00em;
+      margin-top: 10px;
+    }
+
+    .bookmarkBtn:hover .IconContainer {
+      width: 90px;
+      border-radius: 40px;
+      transition-duration: .3s;
+    }
+
+    .bookmarkBtn:hover .text {
+      transform: translate(10px);
+      width: 0;
+      font-size: 0;
+      transition-duration: .3s;
+    }
+
+    .bookmarkBtn:active {
+      transform: scale(0.95);
+      transition-duration: .3s;
+    }
+  </style>
+</head>
+
+<body>
+  {% for i in data %}
+  <div class="row" style="margin-left:100px; width:600px;">
+    <h2 style="font-family:Bell MT;"><a href="#">{{i.dname}}</a></h2>
+    <div class="large-6 columns">
+      <p><img src="https://placehold.it/600x370&text=Look at me!" alt="image for article" alt="article preview image">
+      </p>
+    </div>
+    <div class="large-6 columns">
+
+      <span>
+        <p class="fi-torso" style="font-family:Bell MT">Specialization - {{i.special}}</p>
+      </span>
+      <span>
+        <p class="fi-calendar" style="font-family:Bell MT">Qualification - {{i.qualification}}</p>
+      </span>
+      <span>
+        <p class="fi-comments" style="font-family:Bell MT">Mail Id - {{i.dmail}}</p>
+      </span>
+      <span>
+        <p class="fi-comments" style="font-family:Bell MT">Mobile - {{i.dphone}}</p>
+      </span>
+      <span>
+        <p class="fi-comments" style="font-family:Bell MT">Gender - {{i.gender}}</p>
+      </span>
+      <span>
+        <p class="fi-comments" style="font-family:Bell MT">Fee - {{i.fee}}</p>
+      </span>
+
+
+      <h3 style="font-family:Bell MT; text-decoration:underline;">About</h3>
+      <span>
+        <p class="fi-comments" style="font-family:Bell MT">{{i.profile}}</p>
+      </span>
+    </div>
+    <form action="{% url 'editdoctor' dataid=i.id %}">
+      <button class="bookmarkBtn" style="width:110px;">
+        <span class="IconContainer">
+
+          <i style='font-size:24px' class='fas'>&#xf044;</i>
+        </span>
+        <p class="text">Edit</p>
+      </button>
+    </form>
+    <form action="{% url 'deletedoctor' dataid=i.id %}">
+      <button class="bookmarkBtn" style="width:110px; margin-left:140px; margin-top:-40px;">
+        <span class="IconContainer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M3 6h18M16 10v8a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-8M4 6l1-1a2 2 0 0 1 2.83 0L12 12l4.17-4.17a2 2 0 0 1 2.83 0l1 1M7 6V4a4 4 0 0 1 8 0v2" />
+          </svg>
+        </span>
+        <p class="text">Delete</p>
+      </button>
+    </form>
+  </div>
+  <hr>
+  {% endfor %}
+
+</body>
+
+</html>
+{% endblock %}

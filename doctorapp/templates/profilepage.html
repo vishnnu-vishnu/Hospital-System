@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+{% extends 'doctorhome.html' %}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+<div class="profile-container">
+{% for i in data %}
+        <div class="user-info" style=" text-align:left;">
+			        <img class="profile-picture" src="{{i.profileimage.url}}" alt="Profile Picture" style="width:200px; height:250px;">
+
+            <h2>{{i.dname}}</h2><br>
+            <p>Email: {{i.dmail}}</p>
+            <p>Mobile: {{i.dphone}}</p>
+            <p>Age: {{i.age}}</p>
+            <p>Sex: {{i.gender}}</p>
+            <p>Date Of Birth:{{i.dob}} </p>
+            <p>Qualification: {{i.qualification}}</p>
+            <p>Address: {{i.address}}</p>
+            <p>Location: {{i.Location}}</p>
+            <p>Experience: {{i.Experiance}}</p>
+            <a href="{% url 'doctoredit' dataid=i.id  %}">Edit Profile</a> ||
+			<a href="{% url 'doctorlogout'  %}">Logout</a>||
+			<a href="{% url 'doctorchangepassword'  %}">Change Password</a>
+
+        </div>
+{% endfor %}
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error')
+            </script>
+        {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success')
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</body>
+
+</html>
+{% endblock %}

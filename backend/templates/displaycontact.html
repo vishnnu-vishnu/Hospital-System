@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="sampleTable_length"><label>
+                        </div>
+                    </div>
+                    <div id="sampleTable_filter" class="dataTables_filter">
+                        <h3 style="text-align:center;">Messages-Pending for Reply</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid"
+                        aria-describedby="sampleTable_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1"
+                                    aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                    style="width: 187.275px;">Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1"
+                                    aria-label="Position: activate to sort column ascending" style="width: 305px;">
+                                    Mobile</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            {% if i.reply == "NOTREPLIED" %}
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">{{i.name}}</td>
+                                <td>{{i.mobile}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.message}}</td>
+                                <td>
+                                    <p hidden="hidden">{{i.reply}}</p>
+                                </td>
+                                <form action="{% url 'sendmessage' dataid=i.id %}">
+                                    <td>
+                                        {% if message_sent %}
+                                        <button type="button" class="btn btn-success" disabled>Replied</button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-primary">Reply</button>
+                                        {% endif %}
+                                    </td>
+                                </form>
+
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                    crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                {% if messages %}
+                {% for i in messages %}
+                {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}', '', 'warning')
+                </script>
+                {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}', '', 'error')
+                </script>
+                {% elif i.tags == 'success' %}
+                <script>
+                    swal('{{i}}', '', 'success')
+                </script>
+                {% elif i.tags == 'info' %}
+                <script>
+                    swal('{{i}}', '', 'info')
+                </script>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <div class="tile" style="margin-top:20px;">
+                    <div class="tile-body">
+                        <div id="sampleTable_wrapper"
+                            class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_length" id="sampleTable_length"><label>
+                                    </div>
+                                </div>
+                                <div id="sampleTable_filter" class="dataTables_filter">
+                                    <h3 style="text-align:center;">Messages-Replied</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable"
+                                    role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending"
+                                                style="width: 187.275px;">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-label="Position: activate to sort column ascending"
+                                                style="width: 305px;">Mobile</th>
+                                            <th>Email</th>
+                                            <th>Message</th>
+                                            <th>Status</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in data %}
+                                        {% if i.reply != "NOTREPLIED" %}
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">{{i.name}}</td>
+                                            <td>{{i.mobile}}</td>
+                                            <td>{{i.email}}</td>
+                                            <td>{{i.message}}</td>
+                                            <td hidden="hidden">
+                                                <p hidden="hidden">{{i.reply}}</p>
+                                            </td>
+                                            <td>
+                                                Replied
+                                            </td>
+
+
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                                crossorigin="anonymous"></script>
+                            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+                            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+</body>
+
+</html>
+{% endblock %}

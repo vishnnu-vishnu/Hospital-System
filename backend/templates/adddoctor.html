@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .container {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form action="{% url 'doctorsave' %}" method="post">
+      {% csrf_token %}
+
+      <input type="hidden" id="generatedValue" readonly name="doctorid">
+
+      <label for="doctorName">Doctor Name:</label>
+      <input type="text" id="doctorName" name="dname" required>
+
+
+
+
+      <label for="Specialization">Specialization:</label>
+      <select id="Specialization" name="special">
+        <option>Select Doctor Specialization</option>
+        {% for i in data %}
+        <option>{{i.depname}}</option>
+        {% endfor %}
+      </select>
+      <label for="email">Qualifications:</label>
+      <input type="text" id="" name="qual" required value="{{datas.dmail}}">
+      <label for="email">Profile:</label>
+      <textarea name="profile" class="form-control"></textarea>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="nil@gmail.com">
+
+      <label for="contactNumber">Contact Number:</label>
+      <input type="text" id="contactNumber" name="number" value="123456789">
+
+      <label>Gender:</label>
+      <input type="radio" name="gender" value="male"> Male
+      <input type="radio" name="gender" value="female"> Female
+
+
+      <label for="fee">Fee:</label>
+      <input type="text" id="fee" name="fee" required>
+
+      <input type="submit" value="Add Doctor">
+    </form>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to generate a random 6-digit value
+      function generateRandomValue() {
+        return Math.floor(100000 + Math.random() * 900000);
+      }
+
+      // Get the input field element
+      var inputValue = document.getElementById("generatedValue");
+
+      // Generate and set the initial value
+      inputValue.value = generateRandomValue();
+
+      // Update the value when the input field is clicked
+      inputValue.addEventListener("refresh", function () {
+        inputValue.value = generateRandomValue();
+      });
+    });
+
+  </script>
+</body>
+
+</html>
+{% endblock %}

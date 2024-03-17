@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <h2 id="appointment-heading">Appointment Details</h2>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="sampleTable_filter" class="dataTables_filter">
+                            <h3 class="tile-title" style="text-align:center;">Pending</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 187.275px;">User ID</th>
+                                    <th style="width: 187.275px;">Booking ID</th>
+                                    <th style="width: 187.275px;">Patient Name</th>
+                                    <th style="width: 305px;">Date</th>
+                                    <th style="width: 305px;">Department</th>
+                                    <th style="width: 305px;">Email Id</th>
+                                    <th style="width: 305px;">Mobile</th>
+                                    <th style="width: 305px;">Docotor Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+                                <tr role="row" class="odd">
+                                    <td>{{ i.userid }}</td>
+                                    <td>{{ i.bookingid }}</td>
+                                    <td>{{ i.firstname }} {{i.lastname }}</td>
+                                    <td>{{ i.date }}</td>
+                                    <td>{{ i.department }}</td>
+                                    <td>{{ i.email }}</td>
+                                    <td>{{ i.phone }}</td>
+                                    <td>{{ i.doctor }}</td>
+                                    <td><a href="{% url 'pateintprofile' userid=i.userid %}">Patient History</a></td>
+
+
+                                    <form action="{% url 'patientcontact' dataid=i.bookingid %}">
+                                        <td>
+                                            <button type="submit" class="btn btn-class-outline-primary"
+                                                style="background-color:green;">Contact Patient</button>
+                                        </td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="" class="dataTables_filter">
+                            <h3 class="tile-title" style="text-align:center;">Completed</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered dataTable no-footer" id="" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 187.275px;">User ID</th>
+                                    <th style="width: 187.275px;">Booking ID</th>
+                                    <th style="width: 187.275px;">Patient Name</th>
+                                    <th style="width: 305px;">Date</th>
+                                    <th style="width: 305px;">Department</th>
+                                    <th style="width: 305px;">Email Id</th>
+                                    <th style="width: 305px;">Mobile</th>
+                                    <th style="width: 305px;">Docotr Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in user %}
+                                <tr role="row" class="odd">
+                                    <td>{{ i.userid }}</td>
+                                    <td>{{ i.bookingid }}</td>
+                                    <td>{{ i.firstname }} {{i.lastname }}</td>
+                                    <td>{{ i.date }}</td>
+                                    <td>{{ i.department }}</td>
+                                    <td>{{ i.email }}</td>
+                                    <td>{{ i.phone }}</td>
+                                    <td>{{ i.doctor }}</td>
+                                    <td>{{ i.remarks }}</td>
+                                    <td><a href="{% url 'pateintprofile' userid=i.userid %}">Patient History</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        // Get today's date
+        var today = new Date();
+
+        // Define the desired date format
+        var options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
+        // Format the date
+        var formattedDate = today.toLocaleDateString(undefined, options);
+
+        // Update the content of the h2 element with the formatted date
+        document.getElementById('appointment-heading').innerHTML += ' - ' + formattedDate;
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

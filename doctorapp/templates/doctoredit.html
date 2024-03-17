@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+{% extends 'doctorhome.html' %}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <style>
+        button {
+    margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+        #step-wizard {
+    width: 60%;
+    margin: auto;
+}
+
+.step {
+    display: none;
+}
+
+        body{
+		font-family:Georgia
+		}
+
+        .myclass {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+
+
+
+</head>
+<body>
+<form method="post" action="{% url 'updatedoctoredit' dataid=user.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div id="step-wizard">
+    <div class="step" id="step-1">
+        <h2>Step 1</h2>
+        <label>Name:</label>
+        <input type="text" placeholder="Name" value="{{user.dname}}" name="name" readonly><br><br>
+        <label>Age:</label>
+        <input type="text" placeholder="Age" value="{{user.age}}" name="age"><br><br>
+        <label>Date Of Birth:</label>
+        <input type="text" placeholder="Date Of Birth" value="{{user.dob}}" name="dob"><br><br>
+        <a class="next-step">Next</a>
+    </div>
+
+    <div class="step" id="step-2">
+        <h2>Step 2</h2>
+        <label>Qualification:</label>
+        <textarea name="qualification" >{{user.qualification}}
+        </textarea>
+        <label>Experience:</label>
+        <textarea name="experience">{{user.Experiance}}
+        </textarea>
+        <label>Location:</label>
+        <input type="text" placeholder="Location" value="{{user.Location}}" name="location"><br><br>
+        <label>Address:</label>
+        <textarea name="address">{{user.address}}</textarea><br><br>
+        <a class="prev-step">Previous</a>
+        <a class="next-step">Next</a>
+    </div>
+
+    <div class="step" id="step-3">
+        <h2>Step 3</h2>
+        <div class="profile-picture-container">
+            <img src="" style="width:200px; height:250px;">
+            <input type="file"  name="profile">
+        </div>
+        <a class="prev-step">Previous</a>
+        <button type="submit" class="finish">Finish</button>
+    </div>
+</div>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="path/to/your/js/script.js"></script>
+<script>
+    $(document).ready(function() {
+    var currentStep = 1;
+
+    showStep(currentStep);
+
+    $('.next-step').on('click', function() {
+        currentStep++;
+        showStep(currentStep);
+    });
+
+    $('.prev-step').on('click', function() {
+        currentStep--;
+        showStep(currentStep);
+    });
+
+    function showStep(step) {
+        $('.step').hide();
+        $('#step-' + step).show();
+
+        // Handle visibility of next and previous buttons
+        if (step === 1) {
+            $('.prev-step').hide();
+        } else {
+            $('.prev-step').show();
+        }
+
+        if (step === $('.step').length) {
+            $('.next-step').hide();
+            $('.finish').show();
+        } else {
+            $('.next-step').show();
+            $('.finish').hide();
+        }
+    }
+});
+
+</script>
+<script>
+        function previewProfilePicture() {
+            var fileInput = document.getElementById('file-input');
+            var profilePicture = document.getElementById('profile-picture');
+
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                profilePicture.src = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

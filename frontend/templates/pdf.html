@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+		font-family:Georgia
+		}
+    </style>
+
+</head>
+<body>
+
+
+
+  <div id="pt">
+      <div class="">
+          <div style="margin-top:50px;">
+              <img src="{% static 'images/logo2.png' %}" alt="" class="img-fluid" style="width:250px; height:150px: padding:200px;">
+          </div>
+          <div style="margin-left:1100px;  width:500px; margin-top:-140px;">
+              <h1>CARE PLUS MEDICITY</h1>
+              <p>Seaport - Airport Rd, Thrikkakara <br> Kakkanad, Kerala 682030
+              <p>careplusmedicity@yahoo.com</p>
+              <p>www.Careplus.In</p>
+
+              <h3>Token Number:{{data.booking_id}}</h3>
+
+              <h3>Booked Date:{{data.da}}</h3>
+          </div><br><br>
+          <hr>
+          <div style= "height:200px;">
+              <h3 >Name:{{data.fn}} {{data.ln}}</h3><br>
+              <h3>Age:{{data.ag}}</h3><br>
+              <h3>Gender:{{data.gn}}</h3><br>
+              <h3 style="margin-left:400px; margin-top:-200px;">Phone:{{data.ph}}</h3><br>
+              <h3 style="margin-left:400px;">Email:{{data.em}}</h3>
+          </div>
+          <div style="margin-left:1000px; ">
+              <h3 style="margin-top:-190px;">Department:{{data.de}}</h3>
+              <h3>Doctor:{{data.do}}</h3>
+          </div><br><br> <br><br><br>
+          <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+
+
+
+
+
+
+
+
+   <div style="margin-top:100px;">
+        <button onclick="myfun('pt')" class="btn btn-main btn-round-full">Booking Slip</button>
+   </div>
+</div>
+
+</div>
+  <hr>
+  <footer>
+        <p style="text-align:center;">CARE PLUS MEDICITY|Seaport - Airport Rd, Thrikkakara, Kakkanad, Kerala 682030</p>
+  </footer>
+
+<script type="text/javascript">
+    function myfun(pa){
+    var bk = document.body.innerHTML;
+    var dv = document.getElementById(pa).innerHTML;
+        document.body.innerHTML = dv;
+        window.print();
+    }
+
+</script>
+
+
+
+</body>
+</html>

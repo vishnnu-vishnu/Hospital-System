@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <h2>Leave Applications</h2>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="sampleTable_filter" class="dataTables_filter">
+                            <h3 class="tile-title" style="text-align:center;">Pending</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 187.275px;">Staff Name</th>
+                                    <th style="width: 305px;">From Date</th>
+                                    <th style="width: 305px;">To Date</th>
+                                    <th style="width: 305px;">Leave Category</th>
+                                    <th style="width: 305px;">Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+                                {% if i.status == "Pending" %}
+                                <tr role="row" class="odd">
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.fromdate }}</td>
+                                    <td>{{ i.todate }}</td>
+                                    <td>{{ i.leave }}</td>
+                                    <td>{{ i.reason }}</td>
+                                    <td>
+                                        <p hidden="hidden" id="status">{{ i.status }}</p>
+                                    </td>
+                                    <form method="post" action="{% url 'updatestatus' dataid=i.id %}">
+                                        {% csrf_token %}
+                                        <td>
+                                            <button type="submit" value="Approved" name="approve"
+                                                class="btn btn-class-outline-primary" style="background-color:green;"
+                                                onclick="approve()">Approve</button>
+                                        </td>
+                                        <td>
+                                            <button type="submit" value="Rejected" name="approve"
+                                                class="btn btn-class-outline-primary" style="background-color:red;"
+                                                onclick="reject()">Reject</button>
+                                        </td>
+                                    </form>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="sampleTable_filter" class="dataTables_filter">
+                            <h3 class="tile-title" style="text-align:center;">Completed</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid"
+                            aria-describedby="sampleTable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 187.275px;">Staff Name</th>
+                                    <th style="width: 305px;">From Date</th>
+                                    <th style="width: 305px;">To Date</th>
+                                    <th style="width: 305px;">Leave Category</th>
+                                    <th style="width: 305px;">Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+                                {% if i.status == "Rejected" or i.status == "Approved" %}
+                                <tr role="row" class="odd">
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.fromdate }}</td>
+                                    <td>{{ i.todate }}</td>
+                                    <td>{{ i.leave }}</td>
+                                    <td>{{ i.reason }}</td>
+                                    <td>
+                                        <p id="status">{{ i.status }}</p>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+
+</html>
+{% endblock %}

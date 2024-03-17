@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="col-md-6" style="margin-left:300px; margin-top:10px;">
+          <div class="tile">
+            <h3 class="tile-title">Reply Message</h3>
+            <div class="tile-body">
+              <form method="post" action="{% url 'sendreply' dataid=cat.id %}">
+                  {% csrf_token %}
+                <h6>Name:{{cat.name}}</h6>
+                <h6>Mobile:{{cat.mobile}}</h6>
+                <h6>Email:{{cat.email}}</h6>
+                  <input type="hidden" value="{{cat.email}}" readonly name="email">
+                <h6>Message:{{cat.message}}</h6><br>
+                <div class="form-group">
+                  <label class="control-label">Reply Message:</label>
+                  <textarea class="form-control" rows="10" placeholder="Type Message Here" name="rmes"></textarea>
+                </div>
+                <div class="tile-footer">
+              <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Send Message</button>
+            </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error')
+            </script>
+        {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success')
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+
+</body>
+</html>
+{% endblock %}

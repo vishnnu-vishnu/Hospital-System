@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="sampleTable_length"><label>
+                        </div>
+                    </div>
+                    <div id="sampleTable_filter" class="dataTables_filter">
+                        <h3 style="text-align:center;">Category Display</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid"
+                        aria-describedby="sampleTable_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1"
+                                    aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                    style="width: 187.275px;">Category Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1"
+                                    aria-label="Position: activate to sort column ascending" style="width: 305px;">
+                                    Category Description</th>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">{{i.catname}}</td>
+                                <td>{{i.catdes}}</td>
+                                <form action="{% url 'editcat' dataid=i.id %}">
+                                    <td>
+                                        <div class="tile-footer">
+                                            <button class="btn btn-primary" type="submit"><i
+                                                    class="fa fa-fw fa-lg fa-check-circle"></i>EDIT</button>
+
+
+                                        </div>
+                                    </td>
+                                </form>
+                                <form action="{% url 'deletecat' dataid=i.id %}">
+                                    <td>
+                                        <div class="tile-footer">
+                                            <button class="btn btn-primary" type="submit"><i
+                                                    class="fa fa-fw fa-lg fa-check-circle"></i>DELETE</button>
+
+
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            {% if messages %}
+            {% for i in messages %}
+            {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}', '', 'warning')
+            </script>
+            {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}', '', 'error')
+            </script>
+            {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}', '', 'success')
+            </script>
+            {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}', '', 'info')
+            </script>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+</body>
+
+</html>
+{% endblock %}

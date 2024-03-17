@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Plus</title>
+<style>
+  /* Center the container */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Makes the container take up the full height of the viewport */
+    flex-direction: column; /* Align items vertically */
+  }
+
+  /* Style the button */
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+  }
+
+  /* Change background color on hover */
+  .button:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome to Care Plus Medicity</h1>
+  <form action="{% url 'indexfun' %}">
+    <button class="button">Login as Admin</button>
+  </form>
+  <form action="{% url 'signinpage' %}">
+    <button class="button">Login as User</button>
+  </form>
+  <form action="{% url 'doctorlogin'  %}">
+    <button class="button">Login as Doctor</button>
+  </form>
+</div>
+
+</body>
+</html>

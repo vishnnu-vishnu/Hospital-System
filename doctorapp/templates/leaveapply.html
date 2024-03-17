@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'doctorhome.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="{% url 'leavesave' %}">
+    {% csrf_token %}
+     <h3 style="margin-left:370px;">APPLY LEAVE</h3>
+    <div style="width:500px; margin-left:200px;" class="form-control" >
+        {% if request.session.dname %}
+        <input type="hidden" value="{{request.session.dname}}" readonly name="name">
+
+        {% endif %}
+
+    <label >From</label>
+    <input type="date" placeholder="From" class="form-control" name="from"><br><br>
+    <label>TO</label>
+    <input type="date" placeholder="TO" class="form-control" name="to"><br><br>
+    <label>Leave Category</label>
+    <select class="form-control" name="leave">
+        <option>Leave Category</option>
+        <option>Sick Leave</option>
+        <option>Personal Leave</option>
+        <option>Casual Leave</option>
+    </select><br><br>
+    <label>Reason</label>
+    <textarea class="form-control" name="reason"></textarea><br><br>
+            <button type="submit" class="btn btn-outline-success">Apply Leave</button>
+
+    </div>
+</form>
+
+</body>
+</html>
+{% endblock %}

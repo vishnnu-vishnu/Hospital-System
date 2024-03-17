@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+{% extends 'doctorhome.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     <div class="tile" STYLE="margin-top:20px;">
+            <div class="tile-body">
+              <div  class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="sampleTable_length">
+                  </div></div><div class="dataTables_filter"><h3 class="tile-title" style="text-align:center;">VIEW APPOINTMENTS</h3></div></div></div><div class="row"><div class="col-sm-12"><table class="table table-hover table-bordered dataTable no-footer" role="grid" aria-describedby="sampleTable_info">
+                <thead>
+                  <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 187.275px;">User ID</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Gender</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Age</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Email</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Phone</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Date</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Address</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Message</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Type</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Remarks</th>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                <tr role="row" class="odd">
+
+                        <td class="sorting_1">
+                            <a >
+                                {{i.userid}}
+
+                            </a>
+                        </td>
+
+                    <td>{{i.firstname}} {{i.lastname}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.date}}</td>
+                    <td>{{i.address}}</td>
+                    <td>{{i.message}}</td>
+                    <td>{{i.consultation}}</td>
+                    <form method="post" action="{% url 'updateappointment' dataid=i.bookingid %}">
+                        {% csrf_token %}
+                        <td>
+                            <textarea placeholder="Remarks" style="width:200px; height:50px;" name="remarks"></textarea>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-secondary" name="status" value="Completed" type="submit">Completed</button>
+                        </td>
+                    </form>
+                    <td>
+
+                    <a href="{% url 'patienthistory' userid=i.userid %}">Patient History</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              </div>
+
+          </div>
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error')
+            </script>
+        {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success')
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+
+</div>
+<div class="tile" STYLE="margin-top:20px;">
+            <div class="tile-body">
+              <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="">
+                  </div></div><div id="sampleTable_filter" class="dataTables_filter"><h3 class="tile-title" style="text-align:center;">COMPLETED APPOINTMENTS</h3></div></div></div><div class="row"><div class="col-sm-12"><table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                <thead>
+                  <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 187.275px;">User ID</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Gender</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Age</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Email</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Phone</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Date</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Address</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Message</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Type</th>
+                      <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 305px;">Status</th>
+                </thead>
+                <tbody>
+                {% for i in cat %}
+                <tr role="row" class="odd">
+                    <a >
+                        <td class="sorting_1">{{i.userid}}</td>
+                    </a>
+                    <td>{{i.firstname}} {{i.lastname}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.date}}</td>
+                    <td>{{i.address}}</td>
+                    <td>{{i.message}}</td>
+                    <td>{{i.consultation}}</td>
+                    <td>{{i.status}}</td>
+                    <td>
+
+                    <a href="{% url 'patienthistory' userid=i.userid %}">Patient History</a>
+                    </td>
+
+
+
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              </div>
+
+          </div>
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error')
+            </script>
+        {% elif i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success')
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+
+</div>
+
+</body>
+</html>
+{% endblock %}

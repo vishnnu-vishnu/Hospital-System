@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2 id="">Patient History</h2>
+
+        <div class="tile" style="margin-top:20px;">
+        <div class="tile-body">
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="sampleTable_filter" class="dataTables_filter">
+                            <h3 class="tile-title" style="text-align:center;"></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 187.275px;">User ID</th>
+                                    <th style="width: 187.275px;">Booking ID</th>
+                                    <th style="width: 187.275px;">Patient Name</th>
+                                    <th style="width: 305px;">Date</th>
+                                    <th style="width: 305px;">Department</th>
+                                    <th style="width: 305px;">Email Id</th>
+                                    <th style="width: 305px;">Mobile</th>
+                                    <th style="width: 305px;">Docotor Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+                                        <tr role="row" class="odd">
+                                            <td>{{ i.userid }}</td>
+                                            <td>{{ i.bookingid }}</td>
+                                            <td>{{ i.firstname }} {{i.lastname }}</td>
+                                            <td>{{ i.date }}</td>
+                                            <td>{{ i.department }}</td>
+                                            <td>{{ i.email }}</td>
+                                            <td>{{ i.phone }}</td>
+                                            <td>{{ i.doctor }}</td>
+                                            <td>{{ i.remarks }}</td>
+
+
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock %}
